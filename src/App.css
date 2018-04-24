@@ -1,3 +1,7 @@
+* {
+  box-sizing: border-box;
+}
+
 .App {
   display: flex;
   flex-direction: row;
@@ -8,17 +12,33 @@
 }
 
 .game-container {
-  width: 500px;
-  height: 500px;
+  width: 502px;
+  height: 502px;
   border: 1px solid #777;
   position: relative;
   overflow: hidden;
 }
 
 .Player {
-  width: 50px;
-  height: 50px;
-  border: 1px solid #000;
+  width: 100px;
+  height: 100px;
+  /* border: 1px solid #000; */
   position: absolute;
-  transition: all 300ms ease;
+  transition: all 300ms cubic-bezier(0.4, 0.0, 0.2, 1);
+  background-color: #01579b;
+}
+
+.square {
+  width: 100px;
+  height: 100px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.grid-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.obstacle {
+  background-color: #888888;
 }

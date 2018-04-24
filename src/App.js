@@ -1,88 +1,123 @@
 import React, { Component } from 'react';
 import './App.css';
 
+import Player from './components/Player';
+import Grid from './components/Grid';
+
 class App extends Component {
-	state = {
-	  position: {
-	    x: 50,
-	    y: 0
-	  }
-	};
+  state = {
+    position: {
+      x: 100,
+      y: 0
+    },
+    playerMoving: false,
+    // create array of objects with grid/square number and obstacle: false to start
+    grid: Array.from({ length: 25 }, (v, i) => i).map((item, index) => ({
+      number: index,
+      obstacle: false
+    }))
+  };
 
-	componentDidMount() {
-	  window.addEventListener('keyup', event => {
-	    console.log(event);
-	    switch (event.code) {
-	    case 'ArrowUp':
-	      this.moveUp();
-	      break;
+  componentDidMount() {
+    window.addEventListener('keyup', event => {
+      switch (event.code) {
+      case 'ArrowUp':
+        this.moveUp();
+        break;
 
-	    case 'ArrowDown':
-	      this.moveDown();
-	      break;
+      case 'ArrowDown':
+        this.moveDown();
+        break;
 
-	    case 'ArrowLeft':
-	      this.moveLeft();
-	      break;
+      case 'ArrowLeft':
+        this.moveLeft();
+        break;
 
-	    case 'ArrowRight':
-	      this.moveRight();
-	      break;
+      case 'ArrowRight':
+        this.moveRight();
+        break;
 
-	    default:
-	      break;
-	    }
-	  });
-	}
+      default:
+        break;
+      }
+    });
 
-	moveUp = () => {
-	  const { position } = this.state;
-	  if (position.y > 0) {
-	    position.y -= 50;
-	    this.setState({ position });
-	  }
-	};
+    this.createObstacle(4);
+  }
 
-	moveDown = () => {
-	  const { position } = this.state;
-	  if (position.y < 450) {
-	    position.y += 50;
-	    this.setState({ position });
-	  }
-	};
+  // CONTROLLER
+  moveUp = () => {
+    const { position, playerMoving } = this.state;
+    if (position.y > 0 && playerMoving === false) {
+      this.setState({ playerMoving: true });
+      position.y -= 100;
+      this.setState({ position });
+      // wait 300ms for CSS transition
+      setTimeout(() => {
+        this.setState({ playerMoving: false });
+      }, 300);
+    }
+  };
 
-	moveLeft = () => {
-	  const { position } = this.state;
-	  if (position.x > 0) {
-	    position.x -= 50;
-	    this.setState({ position });
-	  }
-	};
+  moveDown = () => {
+    const { position, playerMoving } = this.state;
+    if (position.y < 450 && playerMoving === false) {
+      this.setState({ playerMoving: true });
+      position.y += 100;
+      this.setState({ position });
+      // wait 300ms for CSS transition
+      setTimeout(() => {
+        this.setState({ playerMoving: false });
+      }, 300);
+    }
+  };
 
-	moveRight = () => {
-	  const { position } = this.state;
-	  if (position.x < 450) {
-	    position.x += 50;
-	    this.setState({ position });
-	  }
-	};
+  moveLeft = () => {
+    const { position, playerMoving } = this.state;
+    if (position.x > 0 && playerMoving === false) {
+      this.setState({ playerMoving: true });
+      position.x -= 100;
+      this.setState({ position });
+      // wait 300ms for CSS transition
+      setTimeout(() => {
+        this.setState({ playerMoving: false });
+      }, 300);
+    }
+  };
 
-	render() {
-	  const { position } = this.state;
-	  return (
-	    <div className="App">
-	      <div className="game-container">
-	        <div
-	          className="Player"
-	          style={{
-	            top: `${position.y}px`,
-	            left: `${position.x}px`
-	          }}
-	        />
-	      </div>
-	    </div>
-	  );
-	}
+  moveRight = () => {
+    const { position, playerMoving } = this.state;
+    if (position.x < 450 && playerMoving === false) {
+      this.setState({ playerMoving: true });
+      position.x += 100;
+      this.setState({ position });
+      // wait 300ms for CSS transition
+      setTimeout(() => {
+        this.setState({ playerMoving: false });
+      }, 300);
+    }
+  };
+
+  createObstacle = index => {
+    const { grid } = this.state;
+    grid[index].obstacle = true;
+
+    this.setState({ grid });
+  };
+
+  render() {
+    const { position, grid } = this.state;
+    return (
+      <div className="App">
+        <div className="game-container">
+          <div className="grid-container">
+            <Grid grid={grid} />
+            <Player position={position} />
+          </div>
+        </div>
+      </div>
+    );
+  }
 }
 
 export default App;
