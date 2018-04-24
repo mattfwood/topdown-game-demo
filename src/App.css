@@ -39,6 +39,9 @@
   flex-wrap: wrap;
 }
 
-.obstacle {
+.Obstacle {
   background-color: #888888;
+  position: absolute;
+  width: 100px;
+  height: 100px;
 }

@@ -5,7 +5,7 @@ const Grid = ({ grid }) => {
   return grid.map(square => {
     return (
       <div
-        className={`square ${square.obstacle ? 'obstacle' : ''}`}
+        className="square"
         key={square.number}
       />
     );

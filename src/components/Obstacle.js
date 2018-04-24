@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Player = ({ position }) => {
+const Obstacle = ({ position }) => {
   return (
     <div
-      className="Player"
+      className="Obstacle"
       style={{
         top: `${position.y * 100}px`,
         left: `${position.x * 100}px`
@@ -13,11 +13,11 @@ const Player = ({ position }) => {
   );
 };
 
-Player.propTypes = {
+Obstacle.propTypes = {
   position: PropTypes.shape({
     x: PropTypes.number.isRequired,
     y: PropTypes.number.isRequired
   }).isRequired
 };
 
-export default Player;
+export default Obstacle;
